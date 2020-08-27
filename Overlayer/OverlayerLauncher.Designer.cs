@@ -38,7 +38,7 @@
             this.PreventFocusFromBothBtn = new System.Windows.Forms.Button();
             this.GitHubLink = new System.Windows.Forms.LinkLabel();
             this.focusableChkBox = new System.Windows.Forms.CheckBox();
-            this.topmostChkBox = new System.Windows.Forms.CheckBox();
+            this.titlebarChkBox = new System.Windows.Forms.CheckBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.RunAndDockBtn = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -137,16 +137,18 @@
             this.focusableChkBox.UseVisualStyleBackColor = true;
             this.focusableChkBox.CheckedChanged += new System.EventHandler(this.focusableChkBox_CheckedChanged);
             // 
-            // topmostChkBox
+            // titlebarChkBox
             // 
-            this.topmostChkBox.AutoSize = true;
-            this.topmostChkBox.Enabled = false;
-            this.topmostChkBox.Location = new System.Drawing.Point(94, 89);
-            this.topmostChkBox.Name = "topmostChkBox";
-            this.topmostChkBox.Size = new System.Drawing.Size(153, 16);
-            this.topmostChkBox.TabIndex = 6;
-            this.topmostChkBox.Text = "Disable super-topmost";
-            this.topmostChkBox.UseVisualStyleBackColor = true;
+            this.titlebarChkBox.AutoSize = true;
+            this.titlebarChkBox.Checked = true;
+            this.titlebarChkBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.titlebarChkBox.Location = new System.Drawing.Point(94, 89);
+            this.titlebarChkBox.Name = "titlebarChkBox";
+            this.titlebarChkBox.Size = new System.Drawing.Size(93, 16);
+            this.titlebarChkBox.TabIndex = 6;
+            this.titlebarChkBox.Text = "ToolWindow";
+            this.titlebarChkBox.UseVisualStyleBackColor = true;
+            this.titlebarChkBox.CheckedChanged += new System.EventHandler(this.titlebarChkBox_CheckedChanged);
             // 
             // textBox3
             // 
@@ -179,7 +181,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(357, 139);
-            this.Controls.Add(this.topmostChkBox);
+            this.Controls.Add(this.titlebarChkBox);
             this.Controls.Add(this.focusableChkBox);
             this.Controls.Add(this.GitHubLink);
             this.Controls.Add(this.label3);
@@ -193,7 +195,7 @@
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.Name = "OverlayerLauncher";
             this.Text = "Overlayer";
@@ -216,7 +218,7 @@
         private System.Windows.Forms.Button PreventFocusFromBothBtn;
         private System.Windows.Forms.LinkLabel GitHubLink;
         public System.Windows.Forms.CheckBox focusableChkBox;
-        private System.Windows.Forms.CheckBox topmostChkBox;
+        public System.Windows.Forms.CheckBox titlebarChkBox;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button RunAndDockBtn;
         private System.Windows.Forms.Label label3;

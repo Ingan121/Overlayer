@@ -39,6 +39,9 @@ namespace Overlayer
                     //Prevent kicking out of game (but makes textboxes unusable)
                     if (!_overlayerLauncher.focusableChkBox.Checked) _overlayerLauncher.SetWindowUnfocusable(hWnd);
 
+                    //Disable titlebar to prevent kicking out
+                    if (_overlayerLauncher.titlebarChkBox.Checked) _overlayerLauncher.changeTitlebar(hWnd, true);
+
                     //Disable super-topmost as it is impossible to dock in that state
                     TopMost = false;
 
@@ -72,9 +75,9 @@ namespace Overlayer
         {
             //pDocked = Process.Start(@cmdline);
             StartProcessNoActivate(cmdline);
-            //pDocked.WaitForInputIdle(1000); //wait for the window to be ready for input;
             try
             {
+                pDocked.WaitForInputIdle(1000); //wait for the window to be ready for input;
                 pDocked.Refresh();              //update process info
                 if (pDocked.HasExited)
                 {
@@ -92,6 +95,7 @@ namespace Overlayer
         {
             //Restores the application to it's original parent.
             SetParent(hWnd, hWndOriginalParent);
+            _overlayerLauncher.changeTitlebar(hWnd, false);
         }
 
         public void redockAll()

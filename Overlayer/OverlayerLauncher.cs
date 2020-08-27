@@ -19,6 +19,7 @@ namespace Overlayer
         private const int GWL_EXSTYLE = -20;
         private const int WS_EX_NOACTIVATE = 0x08000000;
         private const int WS_EX_TOPMOST = 0x00000008;
+        private const int WS_EX_TOOLWINDOW = 0x00000080;
         public IntPtr[] childs = new IntPtr[100];
         public int childCount = 0;
 
@@ -116,9 +117,9 @@ namespace Overlayer
 
         public void undockAll()
         {
+            _overlayerContainer.TopMost = false;
             for (int i = 0; i < childCount; i++)
             {
-                _overlayerContainer.TopMost = false;
                 _overlayerContainer.undockIt(childs[i]);
                 SetWindowFocusable(childs[i]);
             }
@@ -177,10 +178,47 @@ namespace Overlayer
                 // My hotkey has been typed
 
                 // Do what you want here
-                WindowState = FormWindowState.Normal;
-                _overlayerContainer.Visible = true;
+                if (_overlayerContainer.Visible == false)
+                {
+                    WindowState = FormWindowState.Normal;
+                    _overlayerContainer.Visible = true;
+                }
+                else
+                {
+                    _overlayerContainer.Visible = false;
+                }
             }
             base.WndProc(ref m);
+        }
+
+        public void changeTitlebar(IntPtr hWnd, bool toolwindow)
+        {
+            if (toolwindow)
+            {
+                SetWindowLong(hWnd, GWL_EXSTYLE, GetWindowLong(hWnd, GWL_EXSTYLE) | WS_EX_TOOLWINDOW);
+            }
+            else
+            {
+                SetWindowLong(hWnd, GWL_EXSTYLE, GetWindowLong(hWnd, GWL_EXSTYLE) & ~WS_EX_TOOLWINDOW);
+            }
+        }
+
+        private void titlebarChkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (titlebarChkBox.Checked)
+            {
+                for (int i = 0; i < childCount; i++)
+                {
+                    SetWindowLong(childs[i], GWL_EXSTYLE, GetWindowLong(childs[i], GWL_EXSTYLE) | WS_EX_TOOLWINDOW);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < childCount; i++)
+                {
+                    SetWindowLong(childs[i], GWL_EXSTYLE, GetWindowLong(childs[i], GWL_EXSTYLE) & ~WS_EX_TOOLWINDOW);
+                }
+            }
         }
     }
 }
